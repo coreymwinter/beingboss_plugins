@@ -65,7 +65,7 @@ function events_post_type() {
         'show_in_admin_bar'   => true,
         'menu_position'       => 25,
         'can_export'          => true,
-        'has_archive'         => true,
+        'has_archive'         => false,
         'exclude_from_search' => false,
         'publicly_queryable'  => true,
         'capability_type'     => 'post',
@@ -110,6 +110,14 @@ function cmb2_events_metabox() {
 		// 'cmb_styles' => false, // false to disable the CMB stylesheet
 		// 'closed'     => true, // Keep the metabox closed by default
 	) );
+	
+	$bbevents->add_field( array(
+    		'name'    => 'Event Details',
+    		'desc'    => 'field description (optional)',
+    		'default' => '',
+    		'id'      => $prefix . 'event_details',
+    		'type'    => 'textarea_small',
+	) );
 
 	$bbevents->add_field( array(
     		'name'    => 'Event Link',
@@ -119,13 +127,13 @@ function cmb2_events_metabox() {
     		'type'    => 'text',
 	) );
 
-	$bbevents->add_field( array(
-    		'name'    => 'Weight',
-    		'desc'    => 'field description (optional)',
-    		'default' => '',
-    		'id'      => $prefix . 'weight',
-    		'type'    => 'text',
-	) );
+    $bbevents->add_field( array(
+            'name'    => 'Event Link Label',
+            'desc'    => 'field description (optional)',
+            'default' => '',
+            'id'      => $prefix . 'event_label',
+            'type'    => 'text',
+    ) );
 
 }
 

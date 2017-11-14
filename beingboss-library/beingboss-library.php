@@ -65,7 +65,7 @@ function library_post_type() {
         'show_in_admin_bar'   => true,
         'menu_position'       => 25,
         'can_export'          => true,
-        'has_archive'         => true,
+        'has_archive'         => false,
         'exclude_from_search' => false,
         'publicly_queryable'  => true,
         'capability_type'     => 'post',
@@ -146,7 +146,37 @@ function cmb2_library_metabox() {
 
 
 
-
+// Add new Library Type taxonomy
+add_action( 'init', 'create_librarytype_hierarchical_taxonomy', 0 );
+ 
+function create_librarytype_hierarchical_taxonomy() {
+ 
+  $labels = array(
+    'name' => _x( 'Library Type', 'taxonomy general name' ),
+    'singular_name' => _x( 'Library Type', 'taxonomy singular name' ),
+    'search_items' =>  __( 'Search Types' ),
+    'all_items' => __( 'All Library Types' ),
+    'parent_item' => __( 'Parent Type' ),
+    'parent_item_colon' => __( 'Parent Type:' ),
+    'edit_item' => __( 'Edit Library Type' ), 
+    'update_item' => __( 'Update Library Type' ),
+    'add_new_item' => __( 'Add New Library Type' ),
+    'new_item_name' => __( 'New Library Type Name' ),
+    'menu_name' => __( 'Library Types' ),
+  );    
+ 
+// Registers the taxonomy
+ 
+  register_taxonomy('librarytype',array('library'), array(
+    'hierarchical' => true,
+    'labels' => $labels,
+    'show_ui' => true,
+    'show_admin_column' => true,
+    'query_var' => true,
+    'rewrite' => array( 'slug' => 'librarytype' ),
+  ));
+ 
+}
 
 
 
