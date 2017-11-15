@@ -3,7 +3,7 @@
 Plugin Name: Being Boss - Shownotes
 Plugin URI:  https://www.beingboss.club
 Description: Custom Shownote Fields for Being Boss
-Version:     1
+Version:     1.1.1
 Author:      Corey Winter
 Author URI:  https://coreymwinter.com
 */
@@ -224,16 +224,16 @@ function cmb2_get_sponsors_list() {
 
 
 /*
-* Initializing the Shownote Opt-Ins custom post type
+* Initializing the Opt-Ins custom post type
 */
  
 function shownote_optins_post_type() {
  
-// Set UI labels for Sponsors post type
+// Set UI labels for Optins post type
     $labels = array(
-        'name'                => _x( 'Shownote Optins', 'Post Type General Name' ),
-        'singular_name'       => _x( 'Shownote Optin', 'Post Type Singular Name' ),
-        'menu_name'           => __( 'Shownote Optins' ),
+        'name'                => _x( 'Optins', 'Post Type General Name' ),
+        'singular_name'       => _x( 'Optin', 'Post Type Singular Name' ),
+        'menu_name'           => __( 'Optins' ),
         'parent_item_colon'   => __( 'Parent Optin' ),
         'all_items'           => __( 'All Optins' ),
         'view_item'           => __( 'View Optin' ),
@@ -246,11 +246,11 @@ function shownote_optins_post_type() {
         'not_found_in_trash'  => __( 'Not found in Trash' ),
     );
      
-// Set other options for Sponsors post type
+// Set other options for Optins post type
      
     $args = array(
         'label'               => __( 'optins' ),
-        'description'         => __( 'Being Boss Shownote Optins' ),
+        'description'         => __( 'Being Boss Optins' ),
         'labels'              => $labels,
         // Features this CPT supports in Post Editor
         'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', ),

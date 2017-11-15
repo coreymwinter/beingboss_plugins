@@ -3,7 +3,7 @@
 Plugin Name: Being Boss - Resources Post Type
 Plugin URI:  https://www.beingboss.club
 Description: Custom Resources Post Type for Being Boss
-Version:     1
+Version:     1.1.1
 Author:      Corey Winter
 Author URI:  https://coreymwinter.com
 */
@@ -122,6 +122,15 @@ function cmb2_resources_metabox() {
             	'type'    => 'text',
     	) );
 
+	$bbresources->add_field( array(
+    		'name'       => __( 'Sidebar Optin', 'cmb2' ),
+    		'desc'       => __( 'Select a sidebar optin', 'cmb2' ),
+    		'id'         => $prefix . 'optin_select',
+    		'type'       => 'select',
+		'show_option_none' => true,
+    		'options_cb' => 'cmb2_get_optins_resource_list',
+	) );
+
 }
 
 
@@ -158,6 +167,40 @@ function create_resourcecat_hierarchical_taxonomy() {
  
 }
 
+
+
+
+/**
+ * Gets a number of optin posts and displays them as options
+ * @param  array $query_args Optional. Overrides defaults.
+ * @return array             An array of options that matches the CMB2 options array
+ */
+function cmb2_get_optins_resource_options( $query_args ) {
+
+    $args = wp_parse_args( $query_args, array(
+        'post_type'   => 'optins',
+        'numberposts' => 100,
+    ) );
+
+    $posts = get_posts( $args );
+
+    $post_options = array();
+    if ( $posts ) {
+        foreach ( $posts as $post ) {
+          $post_options[ $post->ID ] = $post->post_title;
+        }
+    }
+
+    return $post_options;
+}
+
+/**
+ * Gets 100 posts for your_post_type and displays them as options
+ * @return array An array of options that matches the CMB2 options array
+ */
+function cmb2_get_optins_resource_list() {
+    return cmb2_get_optins_resource_options( array( 'post_type' => 'optins', 'numberposts' => 100 ) );
+}
 
 
 
