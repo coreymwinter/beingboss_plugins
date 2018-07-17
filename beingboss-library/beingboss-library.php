@@ -141,7 +141,34 @@ function cmb2_library_metabox() {
     		'type'    => 'text',
 	) );
 
+	$bblibrary->add_field( array(
+    		'name'    => 'ThriveLeads Opt-In',
+    		'desc'    => 'ID only (Do NOT paste entire shortcode)',
+    		'default' => '',
+    		'id'      => $prefix . 'thrive_id',
+    		'type'    => 'text',
+	) );
+
 }
+
+
+
+
+
+
+//function resourcelibrary_query_args($query_args, $grid_name) {
+
+    //if ($grid_name == 'Resource Library Bottom') {
+        // all query parameters can be modified (https://codex.wordpress.org/Class_Reference/WP_Query)
+        //$query_args['offset'] = 3;
+   // }
+    
+   // return $query_args;
+    
+//}
+
+//add_filter('tg_wp_query_args', 'resourcelibrary_query_args', 10, 2);
+
 
 
 

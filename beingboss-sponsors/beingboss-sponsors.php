@@ -3,7 +3,7 @@
 Plugin Name: Being Boss - Sponsors Post Type
 Plugin URI:  https://www.beingboss.club
 Description: Custom Sponsors Post Type for Being Boss
-Version:     1
+Version:     1.0.1
 Author:      Corey Winter
 Author URI:  https://coreymwinter.com
 */
@@ -78,6 +78,49 @@ function sponsors_post_type() {
 */
  
 add_action( 'init', 'sponsors_post_type', 0 );
+
+
+
+add_action( 'cmb2_admin_init', 'cmb2_sponsors_metabox' );
+/**
+ * Define the metabox and field configurations.
+ */
+function cmb2_sponsors_metabox() {
+
+	// Start with an underscore to hide fields from custom fields list
+	$prefix = 'bbsponsors_';
+
+	/**
+	 * Initiate the metabox
+	 */
+	$bbsponsors = new_cmb2_box( array(
+		'id'            => 'bbsponsors_metabox',
+		'title'         => __( 'Sponsor Item Details', 'cmb2' ),
+		'object_types'  => array( 'sponsors', ), // Post type
+		'context'       => 'normal',
+		'priority'      => 'high',
+		'show_names'    => true, // Show field names on the left
+		// 'cmb_styles' => false, // false to disable the CMB stylesheet
+		// 'closed'     => true, // Keep the metabox closed by default
+	) );
+
+	$bbsponsors->add_field( array(
+    		'name'    => 'Sponsor Link',
+    		'desc'    => '',
+    		'default' => '',
+    		'id'      => $prefix . 'link',
+    		'type'    => 'text',
+	) );
+
+	$bbsponsors->add_field( array(
+    		'name'    => 'Weight/Order (1 is listed first)',
+    		'desc'    => '',
+    		'default' => '',
+    		'id'      => $prefix . 'weight',
+    		'type'    => 'text',
+	) );
+
+}
 
 
 

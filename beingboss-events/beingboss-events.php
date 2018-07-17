@@ -110,10 +110,26 @@ function cmb2_events_metabox() {
 		// 'cmb_styles' => false, // false to disable the CMB stylesheet
 		// 'closed'     => true, // Keep the metabox closed by default
 	) );
+
+    $bbevents->add_field( array(
+            'name'    => 'Event Time',
+            'desc'    => '',
+            'default' => '',
+            'id'      => $prefix . 'event_time',
+            'type'    => 'textarea_small',
+    ) );
+
+    $bbevents->add_field( array(
+            'name'    => 'Event Where',
+            'desc'    => '',
+            'default' => '',
+            'id'      => $prefix . 'event_where',
+            'type'    => 'textarea_small',
+    ) );
 	
 	$bbevents->add_field( array(
     		'name'    => 'Event Details',
-    		'desc'    => 'field description (optional)',
+    		'desc'    => '',
     		'default' => '',
     		'id'      => $prefix . 'event_details',
     		'type'    => 'textarea_small',
@@ -121,7 +137,7 @@ function cmb2_events_metabox() {
 
 	$bbevents->add_field( array(
     		'name'    => 'Event Link',
-    		'desc'    => 'field description (optional)',
+    		'desc'    => '',
     		'default' => '',
     		'id'      => $prefix . 'event_link',
     		'type'    => 'text',
@@ -129,11 +145,19 @@ function cmb2_events_metabox() {
 
     $bbevents->add_field( array(
             'name'    => 'Event Link Label',
-            'desc'    => 'field description (optional)',
+            'desc'    => '',
             'default' => '',
             'id'      => $prefix . 'event_label',
             'type'    => 'text',
     ) );
+	
+	$bbevents->add_field( array(
+		'name'	=> 'Vacation Video Link',
+		'desc'	=> 'Popup Video',
+		'default'	=> '',
+		'id'		=> $prefix . 'vacation_video',
+		'type'		=> 'text',
+	) );
 
 }
 

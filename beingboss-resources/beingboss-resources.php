@@ -180,6 +180,14 @@ function cmb2_get_optins_resource_options( $query_args ) {
     $args = wp_parse_args( $query_args, array(
         'post_type'   => 'optins',
         'numberposts' => 100,
+	'tax_query' => array(
+		array(
+			'taxonomy' => 'displaystyle',
+			'field'    => 'slug',
+			'terms'    => 'sidebar',
+		),
+	),
+
     ) );
 
     $posts = get_posts( $args );

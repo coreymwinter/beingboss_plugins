@@ -3,7 +3,7 @@
 Plugin Name: Being Boss - Shownotes
 Plugin URI:  https://www.beingboss.club
 Description: Custom Shownote Fields for Being Boss
-Version:     1.1.1
+Version:     1.1.2
 Author:      Corey Winter
 Author URI:  https://coreymwinter.com
 */
@@ -286,6 +286,41 @@ add_action( 'init', 'shownote_optins_post_type', 0 );
 
 
 
+// Add new Optins Category taxonomy
+add_action( 'init', 'create_optincat_hierarchical_taxonomy', 0 );
+ 
+function create_optincat_hierarchical_taxonomy() {
+ 
+  $labels = array(
+    'name' => _x( 'Display Style', 'taxonomy general name' ),
+    'singular_name' => _x( 'Display Style', 'taxonomy singular name' ),
+    'search_items' =>  __( 'Display Styles' ),
+    'all_items' => __( 'All Display Styles' ),
+    'parent_item' => __( 'Parent Style' ),
+    'parent_item_colon' => __( 'Parent Style:' ),
+    'edit_item' => __( 'Edit Display Style' ), 
+    'update_item' => __( 'Update Display Style' ),
+    'add_new_item' => __( 'Add New Display Style' ),
+    'new_item_name' => __( 'New Display Style Name' ),
+    'menu_name' => __( 'Display Styles' ),
+  );    
+ 
+// Registers the taxonomy
+ 
+  register_taxonomy('displaystyle',array('optins'), array(
+    'hierarchical' => true,
+    'labels' => $labels,
+    'show_ui' => true,
+    'show_admin_column' => true,
+    'query_var' => true,
+    'rewrite' => array( 'slug' => 'displaystyle' ),
+  ));
+ 
+}
+
+
+
+
 
 /**
  * Gets a number of optin posts and displays them as options
@@ -297,6 +332,13 @@ function cmb2_get_optins_post_options( $query_args ) {
     $args = wp_parse_args( $query_args, array(
         'post_type'   => 'optins',
         'numberposts' => 100,
+	'tax_query' => array(
+		array(
+			'taxonomy' => 'displaystyle',
+			'field'    => 'slug',
+			'terms'    => 'fullwidth',
+		),
+	),
     ) );
 
     $posts = get_posts( $args );
