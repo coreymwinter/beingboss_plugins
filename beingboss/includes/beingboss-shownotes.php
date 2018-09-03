@@ -122,6 +122,13 @@ function cmb2_bbshownotes_metaboxes() {
     		'options_cb' => 'cmb2_get_optins_list',
 	) );
 
+  $bbshownotes->add_field( array(
+        'name' => 'Comment Prompt',
+        'desc' => 'Stylized text to appear directly above the commenting section',
+        'id'   => $prefix . 'comment_prompt',
+        'type' => 'textarea_small'
+  ) );
+
 }
 
 

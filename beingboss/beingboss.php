@@ -3,7 +3,7 @@
 Plugin Name: Being Boss - BeingBoss.club
 Plugin URI:  https://www.beingboss.club
 Description: Custom PHP Functions for Being Boss
-Version:     1.5.1
+Version:     1.7
 Author:      Corey Winter
 Author URI:  https://coreymwinter.com
 License:     GPLv2
@@ -51,6 +51,8 @@ if(!class_exists('BB_Custom_Plugin'))
 
             require( 'includes/functions.php' );
             require( 'includes/beingboss-articles.php' );
+            require( 'includes/beingboss-community.php' );
+            require( 'includes/beingboss-courses.php' );
             require( 'includes/beingboss-directory.php' );
             require( 'includes/beingboss-events.php' );
             require( 'includes/beingboss-library.php' );

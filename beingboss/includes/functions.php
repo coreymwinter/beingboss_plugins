@@ -440,5 +440,261 @@ function cmb2_homeposts_metabox() {
 
 
 
+/*
+* Initializing the Community Notice custom post type
+*/
+ 
+function community_notice_post_type() {
+ 
+// Set UI labels for Home page post type
+    $labels = array(
+        'name'                => _x( 'Community Notices', 'Post Type General Name' ),
+        'singular_name'       => _x( 'Notice', 'Post Type Singular Name' ),
+        'menu_name'           => __( 'Notices' ),
+        'parent_item_colon'   => __( 'Parent Notice' ),
+        'all_items'           => __( 'All Notices' ),
+        'view_item'           => __( 'View Notice' ),
+        'add_new_item'        => __( 'Add New Notice' ),
+        'add_new'             => __( 'Add New' ),
+        'edit_item'           => __( 'Edit Notice' ),
+        'update_item'         => __( 'Update Notice' ),
+        'search_items'        => __( 'Search Notices' ),
+        'not_found'           => __( 'Not Found' ),
+        'not_found_in_trash'  => __( 'Not found in Trash' ),
+    );
+     
+// Set other options for Community Notices post type
+     
+    $args = array(
+        'label'               => __( 'communitynotices' ),
+        'description'         => __( 'Being Boss Community Notices' ),
+        'labels'              => $labels,
+        // Features this CPT supports in Post Editor
+        'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', ),
+        /* A hierarchical CPT is like Pages and can have
+        * Parent and child items. A non-hierarchical CPT
+        * is like Posts.
+        */ 
+        'hierarchical'        => false,
+        'public'              => true,
+        'show_ui'             => true,
+        'show_in_menu'        => true,
+        'show_in_nav_menus'   => true,
+        'show_in_admin_bar'   => true,
+        'menu_position'       => 25,
+        'can_export'          => true,
+        'has_archive'         => false,
+        'exclude_from_search' => true,
+        'publicly_queryable'  => true,
+        'capability_type'     => 'post',
+    );
+     
+    // Registering your Custom Post Type
+    register_post_type( 'communitynotices', $args );
+ 
+}
+ 
+/* Hook into the 'init' action so that the function
+* Containing our post type registration is not 
+* unnecessarily executed. 
+*/
+ 
+add_action( 'init', 'community_notice_post_type', 0 );
+add_action( 'cmb2_admin_init', 'cmb2_communitynotices_metabox' );
+/**
+ * Define the metabox and field configurations.
+ */
+function cmb2_communitynotices_metabox() {
+    // Start with an underscore to hide fields from custom fields list
+    $prefix = 'bbcn_';
+    /**
+     * Initiate the metabox
+     */
+    $bbcn = new_cmb2_box( array(
+        'id'            => 'bbcn_metabox',
+        'title'         => __( 'Community Notice Details', 'cmb2' ),
+        'object_types'  => array( 'communitynotices', ), // Post type
+        'context'       => 'normal',
+        'priority'      => 'high',
+        'show_names'    => true, // Show field names on the left
+        // 'cmb_styles' => false, // false to disable the CMB stylesheet
+        // 'closed'     => true, // Keep the metabox closed by default
+    ) );
+    $bbcn->add_field( array(
+            'name'    => 'Short summary',
+            'desc'    => '',
+            'default' => '',
+            'id'      => $prefix . 'short_summary',
+            'type'    => 'textarea_small',
+    ) );
+    $bbcn->add_field( array(
+            'name'    => 'Header text',
+            'desc'    => '',
+            'default' => '',
+            'id'      => $prefix . 'header_text',
+            'type'    => 'text',
+    ) );
+    $bbcn->add_field( array(
+            'name'    => 'Link',
+            'desc'    => '',
+            'default' => '',
+            'id'      => $prefix . 'link',
+            'type'    => 'text',
+    ) );
+    $bbcn->add_field( array(
+            'name'    => 'Link Label',
+            'desc'    => '',
+            'default' => '',
+            'id'      => $prefix . 'link_label',
+            'type'    => 'text',
+    ) );
+    $bbcn->add_field( array(
+        'name'    => 'BG Color Picker',
+        'id'      => $prefix . 'bg_color',
+        'type'    => 'colorpicker',
+        'default' => '#ffffff',
+        'attributes' => array(
+            'data-colorpicker' => json_encode( array(
+                // Iris Options set here as values in the 'data-colorpicker' array
+                'palettes' => array( '#FFF200', '#EC008C', '#00AEEF', '#7C7C7C', '#252525', '#D3D3D3' ),
+            ) ),
+        ),
+    ) );
+    $bbcn->add_field( array(
+        'name'    => 'Text Color Picker',
+        'id'      => $prefix . 'text_color',
+        'type'    => 'colorpicker',
+        'default' => '#252525',
+        'attributes' => array(
+            'data-colorpicker' => json_encode( array(
+                // Iris Options set here as values in the 'data-colorpicker' array
+                'palettes' => array( '#FFF200', '#EC008C', '#00AEEF', '#7C7C7C', '#252525', '#D3D3D3' ),
+            ) ),
+        ),
+    ) );
+
+    $bbcn->add_field( array(
+        'name'             => 'Button Color',
+        'desc'             => 'Select an option',
+        'id'               => $prefix . 'button_color',
+        'type'             => 'select',
+        'show_option_none' => false,
+        'default'          => 'yellow-pink',
+        'options'          => array(
+            'yellow-pink' => __( 'Yellow / Pink Hover', 'cmb2' ),
+            'yellow-blue'   => __( 'Yellow / Blue Hover', 'cmb2' ),
+            'black-pink'     => __( 'Black / Pink Hover', 'cmb2' ),
+            'pink-black'   => __( 'Pink / Black Hover', 'cmb2' ),
+            'blue-black'     => __( 'Blue / Black Hover', 'cmb2' ),
+        ),
+    ) );
+
+}
+
+
+
+
+
+
+
+/*
+    Hide Display Name field on profile page.
+*/
+function ffl_show_user_profile($user)
+{
+?>
+<script>
+    jQuery(document).ready(function() {
+        jQuery('#display_name').parent().parent().hide();
+    });
+</script>
+<?php
+}
+add_action( 'show_user_profile', 'ffl_show_user_profile' );
+add_action( 'edit_user_profile', 'ffl_show_user_profile' );
+
+/*
+    Fix first last on profile saves.
+*/
+function ffl_save_extra_profile_fields( $user_id ) 
+{
+    if ( !current_user_can( 'edit_user', $user_id ) )
+        return false;
+
+    //set the display name
+    $display_name = trim($_POST['first_name'] . " " . $_POST['last_name']);
+    if(!$display_name)
+        $display_name = $_POST['user_login'];
+        
+    $_POST['display_name'] = $display_name;
+    
+    $args = array(
+            'ID' => $user_id,
+            'display_name' => $display_name
+    );   
+    wp_update_user( $args ) ;
+}
+add_action( 'personal_options_update', 'ffl_save_extra_profile_fields' );
+add_action( 'edit_user_profile_update', 'ffl_save_extra_profile_fields' );
+
+/*
+    Fix first last on register.
+*/
+function ffl_fix_user_display_name($user_id)
+{
+    //set the display name
+    $info = get_userdata( $user_id );
+               
+    $display_name = trim($info->first_name . ' ' . $info->last_name);
+    if(!$display_name)
+        $display_name = $info->user_login;
+               
+    $args = array(
+            'ID' => $user_id,
+            'display_name' => $display_name
+    );
+   
+    wp_update_user( $args ) ;
+}
+add_action("user_register", "ffl_fix_user_display_name", 20);
+
+/*
+    Settings Page
+*/
+function ffl_settings_menu_item()
+{
+    add_options_page('Force First Last', 'Force First Last', 'manage_options', 'ffl_settings', 'ffl_settings_page');
+}
+add_action('admin_menu', 'ffl_settings_menu_item', 20);
+
+//affiliates page (add new)
+function ffl_settings_page()
+{
+    if(!empty($_REQUEST['updateusers']) && current_user_can("manage_options"))
+    {
+        global $wpdb;
+        $user_ids = $wpdb->get_col("SELECT ID FROM $wpdb->users");
+        
+        foreach($user_ids as $user_id)
+        {
+            ffl_fix_user_display_name($user_id);         
+            set_time_limit(30);         
+        }
+        
+        ?>
+        <p><?php echo count($user_ids);?> users(s) fixed.</p>
+        <?php
+    }
+    
+    ?>
+    <p>The <em>Force First and Last Name as Display Name</em> plugin will only fix display names at registration or when a profile is updated.</p>
+    <p>If you just activated this plugin, please click on the button below to update the display names of your existing users.</p>
+    <p><a href="?page=ffl_settings&updateusers=1" class="button-primary">Update Existing Users</a></p>
+    <p><strong>WARNING:</strong> This may take a while! If you have a bunch of users or a slow server, <strong>this may hang up or cause other issues with your site</strong>. Use at your own risk.</p>    
+    <?php
+}
+
+
+
 
 ?>
