@@ -113,11 +113,19 @@ function cmb2_library_metabox() {
 
 	$bblibrary->add_field( array(
     		'name'    => 'Link Label',
-    		'desc'    => 'field description (optional)',
+    		'desc'    => '',
     		'default' => '',
     		'id'      => $prefix . 'link_label',
     		'type'    => 'text',
 	) );
+
+    $bblibrary->add_field( array(
+            'name'    => 'Material Byline',
+            'desc'    => '',
+            'default' => '',
+            'id'      => $prefix . 'byline',
+            'type'    => 'text',
+    ) );
 
 	$bblibrary->add_field( array(
     		'name'    => 'ThriveLeads Opt-In',

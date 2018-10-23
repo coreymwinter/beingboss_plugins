@@ -81,7 +81,7 @@ function cmb2_events_metabox() {
 	 */
 	$bbevents = new_cmb2_box( array(
 		'id'            => 'bbevents_metabox',
-		'title'         => __( 'Event Details', 'cmb2' ),
+		'title'         => __( 'Event Details - Public', 'cmb2' ),
 		'object_types'  => array( 'events', ), // Post type
 		'context'       => 'normal',
 		'priority'      => 'high',
@@ -139,6 +139,128 @@ function cmb2_events_metabox() {
 	) );
 
 }
+
+
+
+
+
+add_action( 'cmb2_admin_init', 'cmb2_events_club_metabox' );
+/**
+ * Define the metabox and field configurations.
+ */
+function cmb2_events_club_metabox() {
+
+    // Start with an underscore to hide fields from custom fields list
+    $prefix = 'bbeventsclub_';
+
+    /**
+     * Initiate the metabox
+     */
+    $bbeventsclub = new_cmb2_box( array(
+        'id'            => 'bbevents_metabox_club',
+        'title'         => __( 'Event Details - Club', 'cmb2' ),
+        'object_types'  => array( 'events', ), // Post type
+        'context'       => 'normal',
+        'priority'      => 'high',
+        'show_names'    => true, // Show field names on the left
+        // 'cmb_styles' => false, // false to disable the CMB stylesheet
+        // 'closed'     => true, // Keep the metabox closed by default
+    ) );
+
+    $bbeventsclub->add_field( array(
+            'name'    => 'Event Time',
+            'desc'    => '',
+            'default' => '',
+            'id'      => $prefix . 'event_time',
+            'type'    => 'textarea_small',
+    ) );
+
+    $bbeventsclub->add_field( array(
+            'name'    => 'Event Link',
+            'desc'    => '',
+            'default' => '',
+            'id'      => $prefix . 'event_link',
+            'type'    => 'text',
+    ) );
+
+    $bbeventsclub->add_field( array(
+            'name'    => 'Event Link Label',
+            'desc'    => '',
+            'default' => '',
+            'id'      => $prefix . 'event_label',
+            'type'    => 'text',
+    ) );
+
+    $bbeventsclub->add_field( array(
+            'name' => 'Is Emily hosting?',
+            'desc' => 'If Emily will be attending, check the box',
+            'id'   => $prefix . 'emily_host',
+            'type' => 'checkbox',
+    ) );
+
+    $bbeventsclub->add_field( array(
+            'name' => 'Is Kathleen hosting?',
+            'desc' => 'If Kathleen will be attending, check the box',
+            'id'   => $prefix . 'kathleen_host',
+            'type' => 'checkbox',
+    ) );
+
+    $bbeventsclub->add_field( array(
+            'name'    => 'Guest 1 - Name',
+            'desc'    => '',
+            'default' => '',
+            'id'      => $prefix . 'guest_one_name',
+            'type'    => 'text',
+    ) );
+
+    $bbeventsclub->add_field( array(
+            'name' => 'Guest 1 - Image',
+            'desc' => '',
+            'default' => '',
+            'id' => $prefix . 'guest_one_image',
+            'type' => 'file',
+        // Optional:
+            'options' => array(
+                'url' => false, // Hide the text input for the url
+            ),
+            'text'    => array(
+                'add_upload_file_text' => 'Add File' // Change upload button text. Default: "Add or Upload File"
+            ),
+            // query_args are passed to wp.media's library query.
+            'query_args' => array(
+                'type' => 'application/pdf', // Make library only display PDFs.
+            ),
+    ) );
+
+    $bbeventsclub->add_field( array(
+            'name'    => 'Guest 2 - Name',
+            'desc'    => '',
+            'default' => '',
+            'id'      => $prefix . 'guest_two_name',
+            'type'    => 'text',
+    ) );
+
+    $bbeventsclub->add_field( array(
+            'name' => 'Guest 2 - Image',
+            'desc' => '',
+            'default' => '',
+            'id' => $prefix . 'guest_two_image',
+            'type' => 'file',
+        // Optional:
+            'options' => array(
+                'url' => false, // Hide the text input for the url
+            ),
+            'text'    => array(
+                'add_upload_file_text' => 'Add File' // Change upload button text. Default: "Add or Upload File"
+            ),
+            // query_args are passed to wp.media's library query.
+            'query_args' => array(
+                'type' => 'application/pdf', // Make library only display PDFs.
+            ),
+    ) );
+
+}
+
 
 
 

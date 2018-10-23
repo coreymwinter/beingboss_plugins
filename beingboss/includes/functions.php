@@ -24,6 +24,21 @@ function cmb2_bbpage_metaboxes() {
 		// 'closed'     => true, // Keep the metabox closed by default
 	) );
 
+    $bbpage->add_field( array(
+            'name' => 'Page Content',
+            'desc' => 'This field will overwrite the content in the default page content field. This field is preferred if the page uses extensive HTML markup.',
+            'default' => '',
+            'id' => $prefix . 'content',
+            'type' => 'textarea_code',
+            'attributes' => array(
+              'data-codeeditor' => json_encode( array(
+                  'codemirror' => array(
+                    'lineNumbers' => true,
+                  ),
+              ) ),
+          ),
+    ) );
+
 	$bbpage->add_field( array(
     		'name'    => 'Header Image',
     		'desc'    => 'Upload an image or enter an URL.',
@@ -35,6 +50,10 @@ function cmb2_bbpage_metaboxes() {
     		),
     		'text'    => array(
         		'add_upload_file_text' => 'Add File' // Change upload button text. Default: "Add or Upload File"
+    		),
+    		// query_args are passed to wp.media's library query.
+    		'query_args' => array(
+        		'type' => 'application/pdf', // Make library only display PDFs.
     		),
 	) );
 
@@ -66,23 +85,7 @@ function cmb2_bbpage_metaboxes() {
     		'desc' => 'Optional custom CSS for this individual page',
     		'default' => '',
     		'id' => $prefix . 'page_css',
-    		'type' => 'textarea_code',
-            'attributes' => array(
-              'data-codeeditor' => json_encode( array(
-                  'codemirror' => array(
-                    'lineNumbers' => true,
-                    'mode' => 'css',
-                  ),
-              ) ),
-            ),
-	) );
-
-	$bbpage->add_field( array(
-    		'name' => 'Page Scripts',
-    		'desc' => 'Scripts to go in footer',
-    		'default' => '',
-    		'id' => $prefix . 'footer_scripts',
-    		'type' => 'textarea_code'
+    		'type' => 'textarea_small'
 	) );
 
 }
@@ -710,6 +713,7 @@ function ffl_settings_page()
 
 
 
+
 function new_modify_user_table( $column ) {
     $column['isstudent'] = 'Student';
     $column['isclub'] = 'Club';
@@ -730,7 +734,6 @@ function new_modify_user_table_row( $val, $column_name, $user_id ) {
     return $val;
 }
 add_filter( 'manage_users_custom_column', 'new_modify_user_table_row', 10, 3 );
-
 
 
 
