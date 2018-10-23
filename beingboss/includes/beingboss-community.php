@@ -73,4 +73,45 @@ add_filter('bp_nouveau_get_members_buttons', function( $buttons, $user_id, $type
 
 
 
+
+add_action( 'cmb2_init', 'bbc_user_member_tags' );
+/**
+ * Hook in and add a metabox to add fields to the user profile pages
+ */
+function bbc_user_member_tags() {
+	$prefix = 'bbc_user_';
+	/**
+	 * Metabox for the user profile screen
+	 */
+	$bbc_user = new_cmb2_box( array(
+		'id'               => $prefix . 'tags_metabox',
+		'title'            => __( 'Member Tags Metabox', 'cmb2' ), // Doesn't output for user boxes
+		'object_types'     => array( 'user' ), // Tells CMB2 to use user_meta vs post_meta
+		'show_names'       => true,
+		'new_user_section' => 'add-new-user', // where form will show on new user page. 'add-existing-user' is only other valid option.
+	) );
+	$bbc_user->add_field( array(
+		'name'     => __( 'Membership Tags', 'cmb2' ),
+		'desc'     => __( '', 'cmb2' ),
+		'id'       => $prefix . 'membership_tags_title',
+		'type'     => 'title',
+		'on_front' => false,
+	) );
+	$bbc_user->add_field( array(
+		'name'    => __( 'Student', 'cmb2' ),
+		'desc'    => __( '', 'cmb2' ),
+		'id'      => $prefix . 'student_tag',
+		'type'    => 'checkbox',
+	) );
+	$bbc_user->add_field( array(
+		'name'    => __( 'Club', 'cmb2' ),
+		'desc'    => __( '', 'cmb2' ),
+		'id'      => $prefix . 'club_tag',
+		'type'    => 'checkbox',
+	) );
+}
+
+
+
+
 ?>

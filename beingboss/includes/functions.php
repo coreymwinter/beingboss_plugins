@@ -36,10 +36,6 @@ function cmb2_bbpage_metaboxes() {
     		'text'    => array(
         		'add_upload_file_text' => 'Add File' // Change upload button text. Default: "Add or Upload File"
     		),
-    		// query_args are passed to wp.media's library query.
-    		'query_args' => array(
-        		'type' => 'application/pdf', // Make library only display PDFs.
-    		),
 	) );
 
 	$bbpage->add_field( array(
@@ -70,7 +66,23 @@ function cmb2_bbpage_metaboxes() {
     		'desc' => 'Optional custom CSS for this individual page',
     		'default' => '',
     		'id' => $prefix . 'page_css',
-    		'type' => 'textarea_small'
+    		'type' => 'textarea_code',
+            'attributes' => array(
+              'data-codeeditor' => json_encode( array(
+                  'codemirror' => array(
+                    'lineNumbers' => true,
+                    'mode' => 'css',
+                  ),
+              ) ),
+            ),
+	) );
+
+	$bbpage->add_field( array(
+    		'name' => 'Page Scripts',
+    		'desc' => 'Scripts to go in footer',
+    		'default' => '',
+    		'id' => $prefix . 'footer_scripts',
+    		'type' => 'textarea_code'
 	) );
 
 }
@@ -693,6 +705,31 @@ function ffl_settings_page()
     <p><strong>WARNING:</strong> This may take a while! If you have a bunch of users or a slow server, <strong>this may hang up or cause other issues with your site</strong>. Use at your own risk.</p>    
     <?php
 }
+
+
+
+
+
+function new_modify_user_table( $column ) {
+    $column['isstudent'] = 'Student';
+    $column['isclub'] = 'Club';
+    return $column;
+}
+add_filter( 'manage_users_columns', 'new_modify_user_table' );
+
+function new_modify_user_table_row( $val, $column_name, $user_id ) {
+    switch ($column_name) {
+        case 'isstudent' :
+            return get_user_meta($user_id, 'bbc_user_student_tag', true);
+            break;
+        case 'isclub' :
+            return get_user_meta($user_id, 'bbc_user_club_tag', true);
+            break;
+        default:
+    }
+    return $val;
+}
+add_filter( 'manage_users_custom_column', 'new_modify_user_table_row', 10, 3 );
 
 
 
