@@ -12,7 +12,7 @@ function library_post_type() {
         'singular_name'       => _x( 'Library', 'Post Type Singular Name' ),
         'menu_name'           => __( 'Library' ),
         'parent_item_colon'   => __( 'Parent Library Item' ),
-        'all_items'           => __( 'All Library Items' ),
+        'all_items'           => __( 'Library' ),
         'view_item'           => __( 'View Library Item' ),
         'add_new_item'        => __( 'Add New Library Item' ),
         'add_new'             => __( 'Add New' ),
@@ -38,7 +38,7 @@ function library_post_type() {
         'hierarchical'        => false,
         'public'              => true,
         'show_ui'             => true,
-        'show_in_menu'        => true,
+        'show_in_menu'        => 'bbsettings',
         'show_in_nav_menus'   => true,
         'show_in_admin_bar'   => true,
         'menu_position'       => 25,
@@ -81,7 +81,7 @@ function cmb2_library_metabox() {
 	$bblibrary = new_cmb2_box( array(
 		'id'            => 'bblibrary_metabox',
 		'title'         => __( 'Library Item Details', 'cmb2' ),
-		'object_types'  => array( 'library', ), // Post type
+		'object_types'  => array( 'library' ), // Post type
 		'context'       => 'normal',
 		'priority'      => 'high',
 		'show_names'    => true, // Show field names on the left

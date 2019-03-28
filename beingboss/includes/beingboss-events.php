@@ -13,7 +13,7 @@ function events_post_type() {
         'singular_name'       => _x( 'Event', 'Post Type Singular Name' ),
         'menu_name'           => __( 'Events' ),
         'parent_item_colon'   => __( 'Parent Event Item' ),
-        'all_items'           => __( 'All Event Items' ),
+        'all_items'           => __( 'Events' ),
         'view_item'           => __( 'View Event Item' ),
         'add_new_item'        => __( 'Add New Event Item' ),
         'add_new'             => __( 'Add New' ),
@@ -39,7 +39,7 @@ function events_post_type() {
         'hierarchical'        => false,
         'public'              => true,
         'show_ui'             => true,
-        'show_in_menu'        => true,
+        'show_in_menu'        => 'bbsettings',
         'show_in_nav_menus'   => true,
         'show_in_admin_bar'   => true,
         'menu_position'       => 25,
@@ -131,12 +131,20 @@ function cmb2_events_metabox() {
     ) );
 	
 	$bbevents->add_field( array(
-		'name'	=> 'Vacation Video Link',
+		'name'	=> 'Thrive Leads Vacation Video ID',
 		'desc'	=> 'Popup Video',
 		'default'	=> '',
 		'id'		=> $prefix . 'vacation_video',
 		'type'		=> 'text',
 	) );
+
+    $bbevents->add_field( array(
+        'name'  => 'Popup Maker Vacation Video CSS Class',
+        'desc'  => 'Popup Video',
+        'default'   => '',
+        'id'        => $prefix . 'vacation_video_class',
+        'type'      => 'text',
+    ) );
 
 }
 

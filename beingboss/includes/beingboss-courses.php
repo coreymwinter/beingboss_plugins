@@ -111,10 +111,6 @@ function cmb2_bbcoursedetails_metabox() {
             'text'    => array(
                 'add_upload_file_text' => 'Add File' // Change upload button text. Default: "Add or Upload File"
             ),
-            // query_args are passed to wp.media's library query.
-            'query_args' => array(
-                'type' => 'application/pdf', // Make library only display PDFs.
-            ),
     ) );
 
     $bbcoursedetails->add_field( array(
@@ -128,10 +124,6 @@ function cmb2_bbcoursedetails_metabox() {
             ),
             'text'    => array(
                 'add_upload_file_text' => 'Add File' // Change upload button text. Default: "Add or Upload File"
-            ),
-            // query_args are passed to wp.media's library query.
-            'query_args' => array(
-                'type' => 'application/pdf', // Make library only display PDFs.
             ),
     ) );
 
@@ -154,10 +146,6 @@ function cmb2_bbcoursedetails_metabox() {
             ),
             'text'    => array(
                 'add_upload_file_text' => 'Add File' // Change upload button text. Default: "Add or Upload File"
-            ),
-            // query_args are passed to wp.media's library query.
-            'query_args' => array(
-                'type' => 'application/pdf', // Make library only display PDFs.
             ),
     ) );
 
@@ -197,10 +185,6 @@ function cmb2_bbcoursedetails_metabox() {
             'text'    => array(
                 'add_upload_file_text' => 'Add File' // Change upload button text. Default: "Add or Upload File"
             ),
-            // query_args are passed to wp.media's library query.
-            'query_args' => array(
-                'type' => 'application/pdf', // Make library only display PDFs.
-            ),
     ) );
 
     $bbcoursedetails->add_field( array(
@@ -216,6 +200,13 @@ function cmb2_bbcoursedetails_metabox() {
             'type'       => 'select',
             'show_option_none' => true,
             'options_cb' => 'cmb2_get_course_products_list',
+    ) );
+
+     $bbcoursedetails->add_field( array(
+            'name'    => 'Enroll Now Custom Link',
+            'desc'    => 'if this course has a full sales page (i.e. CEO Day Kit,) use this to insert a link into the Enroll Now buttons',
+            'id'      => $prefix . 'enroll_now_link',
+            'type'    => 'text',
     ) );
 
     $bbcoursedetails->add_field( array(

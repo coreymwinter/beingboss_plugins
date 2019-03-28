@@ -12,7 +12,7 @@ function article_post_type() {
         'singular_name'       => _x( 'Article', 'Post Type Singular Name' ),
         'menu_name'           => __( 'Articles' ),
         'parent_item_colon'   => __( 'Parent Article Item' ),
-        'all_items'           => __( 'All Article Items' ),
+        'all_items'           => __( 'Articles' ),
         'view_item'           => __( 'View Article Item' ),
         'add_new_item'        => __( 'Add New Article Item' ),
         'add_new'             => __( 'Add New' ),
@@ -38,7 +38,7 @@ function article_post_type() {
         'hierarchical'        => false,
         'public'              => true,
         'show_ui'             => true,
-        'show_in_menu'        => true,
+        'show_in_menu'        => 'bbsettings',
         'show_in_nav_menus'   => true,
         'show_in_admin_bar'   => true,
         'menu_position'       => 25,
@@ -121,6 +121,7 @@ function custom_resources_articles_init(){
   $args = array(
     'label' => __( 'Related Resources' ),
     'hierarchical' => true,
+    'show_admin_column' => true,
     'capabilities' => array(
       // allow anyone editing posts to assign terms
       'assign_terms' => 'edit_posts',

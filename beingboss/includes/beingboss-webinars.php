@@ -12,7 +12,7 @@ function webinar_post_type() {
         'singular_name'       => _x( 'Webinar', 'Post Type Singular Name' ),
         'menu_name'           => __( 'Webinars' ),
         'parent_item_colon'   => __( 'Parent Webinar' ),
-        'all_items'           => __( 'All Webinars' ),
+        'all_items'           => __( 'Webinars' ),
         'view_item'           => __( 'View Webinar' ),
         'add_new_item'        => __( 'Add New Webinar' ),
         'add_new'             => __( 'Add New' ),
@@ -38,7 +38,7 @@ function webinar_post_type() {
         'hierarchical'        => false,
         'public'              => true,
         'show_ui'             => true,
-        'show_in_menu'        => true,
+        'show_in_menu'        => 'bbsettings',
         'show_in_nav_menus'   => true,
         'show_in_admin_bar'   => true,
         'menu_position'       => 25,
@@ -182,11 +182,28 @@ function cmb2_bbwebinar_metaboxes() {
 	) );
 
 	$bbwebinar->add_field( array(
-    		'name' => 'Upcoming/Replay Mode',
+    		'name' => 'Replay Mode',
     		'desc' => 'Check box to enable replay mode',
     		'id'   => $prefix . 'replay_mode',
     		'type' => 'checkbox',
 	) );
+
+  $bbwebinar->add_field( array(
+        'name'    => 'Replay Video',
+        'desc'    => 'Embed code for replay video',
+        'default' => '',
+        'id'      => $prefix . 'replay_video',
+        'type'    => 'textarea_code',
+  ) );
+
+  $bbwebinar->add_field( array(
+        'name'       => __( 'Replay Optin', 'cmb2' ),
+        'desc'       => __( 'Select a fullwidth optin', 'cmb2' ),
+        'id'         => $prefix . 'optin_select',
+        'type'       => 'select',
+        'show_option_none' => true,
+        'options_cb' => 'cmb2_get_optins_list',
+  ) );
 
 	$bbwebinar->add_field( array(
     		'name'    => 'Header Image',
@@ -199,10 +216,6 @@ function cmb2_bbwebinar_metaboxes() {
     		),
     		'text'    => array(
         		'add_upload_file_text' => 'Add File' // Change upload button text. Default: "Add or Upload File"
-    		),
-    		// query_args are passed to wp.media's library query.
-    		'query_args' => array(
-        		'type' => 'application/pdf', // Make library only display PDFs.
     		),
 	) );
 
@@ -297,14 +310,6 @@ function cmb2_bbwebinar_metaboxes() {
 	) );
 
 	$bbwebinar->add_field( array(
-    		'name'    => 'Replay Video',
-    		'desc'    => 'Embed code for replay video',
-    		'default' => '',
-    		'id'      => $prefix . 'replay_video',
-    		'type'    => 'text',
-	) );
-
-	$bbwebinar->add_field( array(
     		'name'    => 'External Link',
     		'desc'    => 'External link (such as for the homepage)',
     		'default' => '',
@@ -321,27 +326,27 @@ function cmb2_bbwebinar_metaboxes() {
   ) );
 
   $bbwebinar->add_field( array(
-        'name' => 'Everwebinar Embed Button Label',
-        'desc' => 'Button Label',
+        'name' => 'Everwebinar - Registration Button Code',
+        'desc' => '',
         'default' => '',
-        'id' => $prefix . 'embed_button_label',
+        'id' => $prefix . 'everwebinar_full',
+        'type' => 'textarea_code'
+  ) );
+
+  $bbwebinar->add_field( array(
+        'name' => 'Custom Button Label',
+        'desc' => 'Button Label if Everwebinar/WebinarJam is not used',
+        'default' => '',
+        'id' => $prefix . 'custom_button_label',
         'type' => 'text'
   ) );
 
   $bbwebinar->add_field( array(
-        'name' => 'Everwebinar Embed Button ID',
-        'desc' => 'everything in the title attribute of the embed button code, beginning with regpopbox',
+        'name'    => 'Custom ButtonLink',
+        'desc'    => 'Custom Button Link if Everwebinar/WebinarJam is not used',
         'default' => '',
-        'id' => $prefix . 'embed_button',
-        'type' => 'textarea_small'
-  ) );
-
-  $bbwebinar->add_field( array(
-        'name' => 'Everwebinar Embed Button Tracker',
-        'desc' => 'the entire <img> tag included in the embed button code',
-        'default' => '',
-        'id' => $prefix . 'embed_button_tracker',
-        'type' => 'textarea_small'
+        'id'      => $prefix . 'custom_button_link',
+        'type'    => 'text',
   ) );
 
   $bbwebinar->add_field( array(
@@ -350,14 +355,6 @@ function cmb2_bbwebinar_metaboxes() {
         'default' => '',
         'id' => $prefix . 'custom_tracker',
         'type' => 'textarea_code'
-  ) );
-
-  $bbwebinar->add_field( array(
-        'name' => 'Thrive Leads Form ID',
-        'desc' => 'ID number only',
-        'default' => '',
-        'id' => $prefix . 'thrive_form',
-        'type' => 'text'
   ) );
 
 

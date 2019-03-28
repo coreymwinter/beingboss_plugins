@@ -50,10 +50,13 @@ if(!class_exists('BB_Custom_Plugin'))
             }
 
             require( 'includes/functions.php' );
+            require( 'includes/settings.php' );
+            require( 'includes/beingboss-affiliates.php' );
             require( 'includes/beingboss-articles.php' );
             require( 'includes/beingboss-community.php' );
             require( 'includes/beingboss-courses.php' );
-            require( 'includes/beingboss-directory.php' );
+            /*require( 'includes/beingboss-directory.php' );*/
+            require( 'includes/beingboss-downloads.php' );
             require( 'includes/beingboss-events.php' );
             require( 'includes/beingboss-library.php' );
             require( 'includes/beingboss-resources.php' );

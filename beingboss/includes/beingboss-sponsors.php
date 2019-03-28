@@ -12,7 +12,7 @@ function sponsors_post_type() {
         'singular_name'       => _x( 'Sponsor', 'Post Type Singular Name' ),
         'menu_name'           => __( 'Sponsors' ),
         'parent_item_colon'   => __( 'Parent Sponsor' ),
-        'all_items'           => __( 'All Sponsors' ),
+        'all_items'           => __( 'Sponsors' ),
         'view_item'           => __( 'View Sponsor' ),
         'add_new_item'        => __( 'Add New Sponsor' ),
         'add_new'             => __( 'Add New' ),
@@ -30,7 +30,7 @@ function sponsors_post_type() {
         'description'         => __( 'Being Boss Corporate Sponsors' ),
         'labels'              => $labels,
         // Features this CPT supports in Post Editor
-        'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', ),
+        'supports'            => array( 'title', 'author', 'thumbnail', 'revisions', 'custom-fields', ),
         /* A hierarchical CPT is like Pages and can have
         * Parent and child items. A non-hierarchical CPT
         * is like Posts.
@@ -38,7 +38,7 @@ function sponsors_post_type() {
         'hierarchical'        => false,
         'public'              => true,
         'show_ui'             => true,
-        'show_in_menu'        => true,
+        'show_in_menu'        => 'bbsettings',
         'show_in_nav_menus'   => true,
         'show_in_admin_bar'   => true,
         'menu_position'       => 25,
@@ -100,6 +100,15 @@ function cmb2_sponsors_metabox() {
     		'default' => '',
     		'id'      => $prefix . 'weight',
     		'type'    => 'text',
+	) );
+
+	$bbsponsors->add_field( array(
+    		'name'    => 'Google Analytics Event Class',
+    		'desc'    => 'ex: sponsor-shortname',
+    		'default' => '',
+    		'id'      => $prefix . 'event',
+    		'type'    => 'text',
+    		'column'  => true,
 	) );
 
 }
